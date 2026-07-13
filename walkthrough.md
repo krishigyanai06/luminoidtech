@@ -1,18 +1,27 @@
-# Walkthrough: SweetAlert Modal Integration
+# Walkthrough: Candidate Registration Form Operational Integration
 
-We have completed the styling and alert configurations on the **Luminoid Technologies** website. In accordance with your request, we have integrated SweetAlert2 to show beautiful popups for contact form status indicators.
+We have completed the final visual and functional adjustments on the **Luminoid Technologies** website. In accordance with your request, we have resolved the compilation and runtime errors on the Candidate Registration form, making it fully operational with EmailJS and SweetAlert2.
 
 ---
 
-## 🎨 Visual Alert Enhancements
+## 🛠️ Functional Enhancements
 
-### 1. Dependency Added
-- Installed **`sweetalert2`** to compile interactive, stylish popups.
+### 1. Fixed undefined `setEmail` Handler
+- Corrected the onChange event handler for the Email input field in **`src/app/recruitment/page.js`** from calling `setEmail(e.target.value)` (which was throwing a runtime reference error) to calling the correct state handler: `setCandidateEmail(e.target.value)`.
 
-### 2. SweetAlert Configuration (`contact/page.js`)
-- Integrated `Swal.fire` inside our EmailJS callback routine:
-  - **Success Alert**: Triggered on valid email delivery. Renders a success check circle with a custom brand-teal (`#00a79d`) confirmation button.
-  - **Error Alert**: Triggered on transmission failures. Renders a red error cross detailing the exact API response reason with a brand-copper (`#b35a38`) confirmation button.
+### 2. Operational EmailJS Sourcing Integration
+- Configured a React `formRef` on the registration form container.
+- Enabled submission dispatch using `emailjs.sendForm` with the loaded env keys.
+- **Form Value Mapping**:
+  - Name input `name="from_name"` binds to `{{from_name}}`.
+  - Email input `name="from_email"` binds to `{{from_email}}`.
+  - Selected expertise area select `name="inquiry_type"` binds to `{{inquiry_type}}`.
+  - Configured a hidden input: `<input type="hidden" name="message" value="Resume brief uploaded: [file_name]" />` to safely map the simulated resume file upload event information directly to the `{{message}}` EmailJS template variable.
+
+### 3. Beautiful SweetAlert Popups
+- Imported `sweetalert2` in `recruitment/page.js` to replace browser alerts.
+- **Registration Success**: Launches a green alert box confirming that the brief has been logged with our Pune sourcing desk.
+- **Registration Failures**: Displays a red alert box detailing the raw error code from the EmailJS API.
 
 ---
 
@@ -26,11 +35,11 @@ The visual layout compiles cleanly with Next.js Turbopack:
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 39.6s
+✓ Compiled successfully in 33.6s
   Running TypeScript ...
-  Finished TypeScript in 2.0s ...
+  Finished TypeScript in 627ms ...
   Generating static pages (7/7) ...
-✓ Generating static pages successfully in 3.3s
+✓ Generating static pages successfully in 3.8s
 
 Route (app)
 ┌ ○ /

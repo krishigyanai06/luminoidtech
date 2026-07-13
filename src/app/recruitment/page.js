@@ -1,425 +1,323 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
+import Swal from "sweetalert2";
 import { 
-  Users, Briefcase, Award, GraduationCap, ArrowUpRight, 
-  UploadCloud, CheckCircle, FileText, CheckCircle2, ChevronRight, 
-  Search, ShieldAlert, Calendar, ClipboardCheck, Handshake, ShieldCheck
+  Briefcase, Users, FileText, Settings, Award, 
+  ChevronRight, Send, ArrowUpRight, ShieldCheck, MapPin, Mail, Clock
 } from "lucide-react";
 
 export default function Recruitment() {
-  // Mock form state
-  const [candidateName, setCandidateName] = useState("");
-  const [candidateEmail, setCandidateEmail] = useState("");
-  const [expertise, setExpertise] = useState("Software Development");
-  const [fileName, setFileName] = useState("");
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadStatus, setUploadStatus] = useState("idle"); // idle, uploading, completed, error
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const formRef = useRef(null);
+  const [isSending, setIsSending] = useState(false);
 
-  const fileInputRef = useRef(null);
+  // Form Fields State
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [serviceRequired, setServiceRequired] = useState("Executive Search");
+  const [messageText, setMessageText] = useState("");
 
-  const specializations = [
-    { name: "Information Technology", desc: "Software engineers, Cloud architects, AI research leads, database developers, and Platform Security directors." },
-    { name: "FinTech & Payments", desc: "Core engineers for billing APIs, transaction ledger nodes, settlement gateways, and wallet apps." },
-    { name: "BFSI & Banking", desc: "Quantitative risk modelers, compliance controllers, banking platform leads, and treasury operations heads." },
-    { name: "Global Capability Centers (GCC)", desc: "Setting up dedicated off-shore development desks, talent sourcing, and operational compliance in Pune." },
-    { name: "Growth Startups", desc: "Agile product managers, full-stack engineers, database administrators, and technical team leads." }
-  ];
+  const sendEmail = (e) => {
+    e.preventDefault();
+    if (!firstName || !lastName || !email || !messageText) {
+      Swal.fire({
+        title: "Fields Required",
+        text: "Please fill out all required fields marked with an asterisk (*).",
+        icon: "warning",
+        confirmButtonColor: "var(--accent-gold)"
+      });
+      return;
+    }
 
-  const levels = [
-    { title: "Graduate Technical Sourcing", desc: "Identifying top university engineering talent across Maharashtra." },
-    { title: "Experienced Engineers", desc: "Mid-level backend developers, database administrators, and software testers." },
-    { title: "Technical Leadership", desc: "Staff engineers, principal architects, delivery managers, and product owners." },
-    { title: "Executive Search", desc: "CTOs, VPs of Engineering, Chief Information Officers (CIOs), and Directors." }
-  ];
+    setIsSending(true);
 
-  const services = [
-    "Permanent IT Recruitment", "BFSI Executive Search", "Leadership Sourcing", 
-    "Recruitment Process Outsourcing (RPO)", "Contract IT Staffing", "Talent Audits & Benchmarking"
-  ];
+    emailjs
+      .sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ""
+      )
+      .then(
+        (result) => {
+          console.log("RECRUITMENT ENQUIRY SUCCESS!", result.text);
+          setIsSending(false);
+          
+          Swal.fire({
+            title: "Enquiry Sent!",
+            text: "Thank you. Our executive search coordinators will respond within 24 hours.",
+            icon: "success",
+            confirmButtonColor: "var(--accent-teal)"
+          });
+
+          // Reset form
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setCompany("");
+          setServiceRequired("Executive Search");
+          setMessageText("");
+          
+          if (formRef.current) {
+            formRef.current.reset();
+          }
+        },
+        (error) => {
+          console.log("RECRUITMENT ENQUIRY FAILED...", error);
+          setIsSending(false);
+          const errorMsg = error?.text || error?.message || JSON.stringify(error) || "Unknown error";
+
+          Swal.fire({
+            title: "Submission Failed",
+            text: `Failed to dispatch enquiry: ${errorMsg}`,
+            icon: "error",
+            confirmButtonColor: "var(--accent-copper)"
+          });
+        }
+      );
+  };
 
   const workflowSteps = [
     {
       step: "01",
-      title: "Visionary Leadership Sourcing",
-      desc: "Identify and engage executive leaders possessing the precise vision, drive, and attitude required to steer growth."
+      title: "Identify Leadership",
+      desc: "Identify leaders with the right vision and winning attitude."
     },
     {
       step: "02",
-      title: "Applicant Differentiation",
-      desc: "Vet and filter candidate pools to separate and highlight peak performers for target positions."
+      title: "Differentiate Candidates",
+      desc: "Differentiate and choose the best candidates from the applicant pool."
     },
     {
       step: "03",
-      title: "On-Demand Placement Models",
-      desc: "Deliver flexible, on-demand recruitment operations designed to adapt dynamically to client constraints."
+      title: "Flexible Engagement",
+      desc: "Offer flexible, on-demand recruitment support for client needs."
     },
     {
       step: "04",
-      title: "Emerging Campus Talent",
-      desc: "Cultivate and channel promising early-career talents through university programs directly into pipelines."
+      title: "Emerging Sourcing",
+      desc: "Spot and nurture early-stage talent through campus programs."
     },
     {
       step: "05",
-      title: "Targeted Manpower Solutions",
-      desc: "Provide custom staffing solutions to hit specific project timelines, milestones, and strategic objectives."
+      title: "Staffing Placements",
+      desc: "Provide staffing solutions to meet specific project and business objectives."
     }
   ];
 
-  // Drag and drop handlers
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const simulateUpload = (name) => {
-    setFileName(name);
-    setUploadStatus("uploading");
-    setUploadProgress(0);
-
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setUploadStatus("completed");
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 150);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      simulateUpload(file.name);
-    }
-  };
-
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      simulateUpload(e.target.files[0].name);
-    }
-  };
-
-  const triggerFileSelect = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (!candidateName || !candidateEmail || uploadStatus !== "completed") {
-      alert("Please fill all fields and upload your resume.");
-      return;
-    }
-    setFormSubmitted(true);
-  };
-
-  const resetForm = () => {
-    setCandidateName("");
-    setCandidateEmail("");
-    setExpertise("Software Development");
-    setFileName("");
-    setUploadProgress(0);
-    setUploadStatus("idle");
-    setFormSubmitted(false);
-  };
-
   return (
     <div style={{ position: "relative" }}>
-      <div className="grid-bg"></div>
-
-      {/* Header */}
-      <section style={{ paddingTop: "120px", paddingBottom: "30px", position: "relative", zIndex: 2 }}>
+      
+      {/* 1. Hero Block */}
+      <section style={{ paddingTop: "130px", paddingBottom: "70px", position: "relative", zIndex: 2 }}>
         <div className="container" style={{ textAlign: "center" }}>
-          <span className="section-meta" style={{ justifyContent: "center" }}>Pune Talent Agency</span>
+          <span className="section-meta" style={{ justifyContent: "center" }}>Luminoid Sourcing</span>
           <h1 style={{ 
-            fontSize: "clamp(2rem, 4vw, 3.5rem)", 
+            fontSize: "clamp(2.2rem, 5vw, 4rem)", 
             marginTop: "16px",
-            marginBottom: "20px",
-            fontFamily: "var(--font-serif)"
-          }} id="recruitment-headline" className="gradient-text">
-            Executive Recruitment Pune | IT & BFSI Sourcing
+            marginBottom: "24px",
+            fontFamily: "var(--font-serif)",
+            lineHeight: "1.15"
+          }}>
+            Empowering Businesses.<br />
+            With Exceptional Talent.
           </h1>
-          <p style={{ color: "var(--text-secondary)", maxWidth: "700px", margin: "0 auto", fontSize: "1.1rem" }}>
-            Luminoid is a specialized talent acquisition agency matching elite software developers, database engineers, 
-            and risk managers to tech sectors in Pune and BFSI enterprises globally.
+          <p style={{ 
+            color: "var(--text-secondary)", 
+            maxWidth: "750px", 
+            margin: "0 auto", 
+            fontSize: "1.15rem",
+            lineHeight: "1.6"
+          }}>
+            Unlocking the future of work by connecting visionary organizations with transformational talent worldwide.
           </p>
         </div>
       </section>
 
-      {/* Featured Banner Image */}
-      <section style={{ paddingTop: "0px", paddingBottom: "40px", position: "relative", zIndex: 2 }}>
+      {/* 2. HOW WE HELP (Services) */}
+      <section style={{ backgroundColor: "var(--bg-secondary)", borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)", position: "relative", zIndex: 2 }} id="help-section">
         <div className="container">
-          <div style={{ position: "relative", width: "100%", height: "350px", overflow: "hidden", border: "1px solid var(--border-color)" }}>
-            <img 
-              src="/images/recruitment1.jpg" 
-              alt="Luminoid Recruitment Agency Pune" 
-              style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7 }}
-            />
-            <div style={{
-              position: "absolute",
-              top: 0, left: 0, right: 0, bottom: 0,
-              background: "linear-gradient(to top, rgba(255, 255, 255, 0.95) 15%, rgba(255, 255, 255, 0.25) 100%)",
-              display: "flex",
-              alignItems: "flex-end",
-              padding: "40px"
-            }}>
-              <div style={{ maxWidth: "600px" }}>
-                <h2 style={{ fontSize: "2rem", marginBottom: "10px", fontFamily: "var(--font-serif)" }}>Elite IT Talent Sourcing & Vetting</h2>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem" }}>
-                  We map technical roles across FinTech, enterprise databases, and AI software teams to place developers who stick.
-                </p>
-              </div>
-            </div>
+          <div style={{ textAlign: "center", marginBottom: "60px" }}>
+            <span className="section-meta" style={{ justifyContent: "center" }}>HOW WE HELP</span>
+            <h2 style={{ fontSize: "2.4rem", fontFamily: "var(--font-serif)" }}>Recruitment Solutions</h2>
           </div>
-        </div>
-      </section>
 
-      {/* Main Content Grid */}
-      <section style={{ paddingTop: "20px", position: "relative", zIndex: 2 }}>
-        <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "60px", alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "30px" }}>
             
-            {/* Left Column: Details & Capabilities */}
-            <div>
-              {/* Specializations & Venn Diagram */}
-              <div style={{ marginBottom: "50px" }} id="specializations-div">
-                <h2 style={{ fontSize: "1.8rem", marginBottom: "24px", fontFamily: "var(--font-serif)" }}>Specialized IT & BFSI Sourcing</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "30px", alignItems: "start" }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                    {specializations.map((spec, index) => (
-                      <div key={index} style={{ display: "flex", gap: "16px" }} id={`spec-row-${index}`}>
-                        <div style={{ 
-                          color: "var(--accent)",
-                          fontFamily: "var(--font-serif)",
-                          fontSize: "1.05rem",
-                          fontWeight: "bold",
-                          flexShrink: 0,
-                          marginTop: "2px"
-                        }}>
-                          0{index + 1}.
-                        </div>
-                        <div>
-                          <h3 style={{ fontSize: "1rem", color: "var(--text-primary)", marginBottom: "4px", fontFamily: "var(--font-serif)" }}>{spec.name}</h3>
-                          <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.5" }}>{spec.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Specialization Visual Card */}
-                  <div className="editorial-card" style={{ padding: "16px", background: "transparent" }}>
-                    <img 
-                      src="/images/recruitment2.jpg" 
-                      alt="Competency Venn Mapping for IT Recruitment" 
-                      style={{ width: "100%", border: "1px solid var(--border-color)" }}
-                    />
-                    <div style={{ paddingTop: "12px" }}>
-                      <h4 style={{ fontSize: "0.85rem", color: "var(--text-primary)", marginBottom: "4px", fontFamily: "var(--font-serif)" }}>Competency Assessment</h4>
-                      <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: "1.4" }}>
-                        Synthesizing role requirements, resume history, and technical profiles.
-                      </p>
-                    </div>
-                  </div>
+            {/* Executive Search */}
+            <div className="editorial-card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                <div style={{ background: "rgba(212,175,55,0.1)", padding: "10px", borderRadius: "50%", display: "flex" }}>
+                  <Award size={20} color="var(--accent-gold)" />
                 </div>
+                <h3 style={{ fontSize: "1.2rem", fontFamily: "var(--font-serif)" }}>Executive Search</h3>
               </div>
-
-              {/* Hiring Levels Timeline */}
-              <div style={{ marginBottom: "50px" }} id="levels-div">
-                <h2 style={{ fontSize: "1.8rem", marginBottom: "24px", fontFamily: "var(--font-serif)" }}>Hiring Levels We Support</h2>
-                <div style={{ 
-                  borderLeft: "1px solid var(--border-color)", 
-                  paddingLeft: "24px", 
-                  marginLeft: "12px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "28px"
-                }}>
-                  {levels.map((lvl, index) => (
-                    <div key={index} style={{ position: "relative" }} id={`level-node-${index}`}>
-                      {/* Timeline Dot */}
-                      <div style={{
-                        position: "absolute",
-                        left: "-30px",
-                        top: "6px",
-                        width: "10px",
-                        height: "10px",
-                        borderRadius: "50%",
-                        background: "var(--accent)"
-                      }}></div>
-                      <h3 style={{ fontSize: "1.05rem", color: "var(--text-primary)", marginBottom: "4px", fontFamily: "var(--font-serif)" }}>{lvl.title}</h3>
-                      <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.5" }}>{lvl.desc}</p>
-                    </div>
-                  ))}
-                </div>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.6", marginBottom: "24px", flexGrow: 1 }}>
+                Luminoid specializes in executive search services, helping companies recruit top leadership talent for senior and mid-level management roles across various industries.
+              </p>
+              <div style={{ fontSize: "0.8rem", fontWeight: "700", color: "var(--accent-gold)", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: "auto", display: "flex", alignItems: "center", gap: "4px" }}>
+                LEARN MORE <ChevronRight size={14} />
               </div>
-
-              {/* Services Offered list */}
-              <div id="services-offered-div" style={{ marginBottom: "40px" }}>
-                <h2 style={{ fontSize: "1.8rem", marginBottom: "20px", fontFamily: "var(--font-serif)" }}>Sourcing Services Offered</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  {services.map((srv, idx) => (
-                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-secondary)", fontSize: "0.85rem" }}>
-                      <ChevronRight size={14} color="var(--accent)" />
-                      <span>{srv}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
             </div>
 
-            {/* Right Column: Dynamic Resume Submission Form */}
-            <div className="editorial-card" style={{ position: "sticky", top: "120px", background: "var(--bg-secondary)" }} id="candidate-portal-form">
-              {!formSubmitted ? (
-                <form onSubmit={handleFormSubmit}>
-                  <div style={{ textAlign: "center", marginBottom: "30px" }}>
-                    <h3 style={{ fontSize: "1.5rem", fontFamily: "var(--font-serif)" }}>Candidate Registration</h3>
-                    <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "4px" }}>
-                      Submit your file to begin a dialog with our sourcing team.
-                    </p>
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="candidate-name-input">Your Name</label>
-                    <input 
-                      type="text" 
-                      id="candidate-name-input"
-                      className="form-input" 
-                      placeholder="e.g. Rahul Sharma" 
-                      value={candidateName}
-                      onChange={(e) => setCandidateName(e.target.value)}
-                      required 
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="candidate-email-input">Email Address</label>
-                    <input 
-                      type="email" 
-                      id="candidate-email-input"
-                      className="form-input" 
-                      placeholder="e.g. rahul@example.com" 
-                      value={candidateEmail}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required 
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="expertise-select">Focus Area</label>
-                    <select 
-                      id="expertise-select"
-                      className="form-select"
-                      value={expertise}
-                      onChange={(e) => setExpertise(e.target.value)}
-                    >
-                      <option value="Software Development">Software Development</option>
-                      <option value="Artificial Intelligence">Artificial Intelligence / Data Science</option>
-                      <option value="BFSI Management">BFSI / FinTech Operations</option>
-                      <option value="Executive Management">Executive Search / Leadership</option>
-                    </select>
-                  </div>
-
-                  {/* Drag & Drop File Container */}
-                  <div className="form-group" style={{ marginBottom: "30px" }}>
-                    <label className="form-label">Resume (PDF or DOCX)</label>
-                    <div 
-                      onDragOver={handleDragOver}
-                      onDrop={handleDrop}
-                      onClick={triggerFileSelect}
-                      style={{
-                        border: "1px dashed var(--border-color)",
-                        padding: "30px 20px",
-                        textAlign: "center",
-                        background: "var(--bg-primary)",
-                        cursor: "pointer",
-                        transition: "var(--transition-smooth)",
-                        borderColor: uploadStatus === "completed" ? "var(--accent-green)" : "var(--border-color)"
-                      }}
-                      id="resume-dropzone"
-                    >
-                      <input 
-                        type="file" 
-                        ref={fileInputRef} 
-                        onChange={handleFileChange} 
-                        accept=".pdf,.docx,.doc" 
-                        style={{ display: "none" }}
-                        id="hidden-file-input"
-                      />
-
-                      {uploadStatus === "idle" && (
-                        <div>
-                          <UploadCloud size={28} color="var(--accent)" style={{ margin: "0 auto 10px" }} />
-                          <p style={{ fontSize: "0.85rem", fontWeight: "500" }}>Drag file here or click to browse</p>
-                        </div>
-                      )}
-
-                      {uploadStatus === "uploading" && (
-                        <div>
-                          <FileText size={24} color="var(--accent)" style={{ margin: "0 auto 10px" }} />
-                          <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>Reading: {fileName}</p>
-                          <div style={{ 
-                            width: "100%", 
-                            height: "2px", 
-                            background: "rgba(255,255,255,0.05)", 
-                            marginTop: "12px", 
-                            overflow: "hidden" 
-                          }}>
-                            <div style={{ 
-                              width: `${uploadProgress}%`, 
-                              height: "100%", 
-                              background: "var(--accent)", 
-                              transition: "width 0.15s ease" 
-                            }}></div>
-                          </div>
-                        </div>
-                      )}
-
-                      {uploadStatus === "completed" && (
-                        <div>
-                          <CheckCircle size={28} color="var(--accent-green)" style={{ margin: "0 auto 10px" }} />
-                          <p style={{ fontSize: "0.85rem", color: "var(--accent-green)", fontWeight: "500" }}>Upload Complete</p>
-                          <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "4px" }}>
-                            {fileName}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <button 
-                    type="submit" 
-                    className="btn-solid" 
-                    style={{ width: "100%", justifyContent: "center" }}
-                    id="submit-candidate-btn"
-                  >
-                    Submit Resume Brief
-                  </button>
-                </form>
-              ) : (
-                <div style={{ textAlign: "center", padding: "20px 0" }} id="candidate-success-view">
-                  <CheckCircle2 size={50} color="var(--accent)" style={{ margin: "0 auto 20px" }} />
-                  <h3 style={{ fontSize: "1.6rem", marginBottom: "12px", fontFamily: "var(--font-serif)" }}>Brief Logged</h3>
-                  <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: "1.65", marginBottom: "30px" }}>
-                    Thank you, <strong style={{ color: "var(--text-primary)" }}>{candidateName}</strong>. Your profile in{" "}
-                    <strong>{expertise}</strong> has been logged. We will contact you at <strong>{candidateEmail}</strong> if your profile matches our active searches.
-                  </p>
-                  <button onClick={resetForm} className="btn-primary" id="reset-candidate-form-btn">
-                    Register Another Profile
-                  </button>
+            {/* Staff Augmentation */}
+            <div className="editorial-card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                <div style={{ background: "rgba(0,167,157,0.1)", padding: "10px", borderRadius: "50%", display: "flex" }}>
+                  <Users size={20} color="var(--accent-teal)" />
                 </div>
-              )}
+                <h3 style={{ fontSize: "1.2rem", fontFamily: "var(--font-serif)" }}>Staff Augmentation</h3>
+              </div>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.6", marginBottom: "24px", flexGrow: 1 }}>
+                Our Staff Augmentation service allows businesses to scale their workforce flexibly with skilled temporary staff, covering all aspects of hiring, onboarding, payroll, and legal requirements.
+              </p>
+              <div style={{ fontSize: "0.8rem", fontWeight: "700", color: "var(--accent-teal)", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: "auto", display: "flex", alignItems: "center", gap: "4px" }}>
+                LEARN MORE <ChevronRight size={14} />
+              </div>
+            </div>
+
+            {/* RPO */}
+            <div className="editorial-card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                <div style={{ background: "rgba(179,90,56,0.1)", padding: "10px", borderRadius: "50%", display: "flex" }}>
+                  <Settings size={20} color="var(--accent-copper)" />
+                </div>
+                <h3 style={{ fontSize: "1.2rem", fontFamily: "var(--font-serif)" }}>RPO</h3>
+              </div>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.6", marginBottom: "24px", flexGrow: 1 }}>
+                We offer Recruitment Process Outsourcing (RPO) services, managing end-to-end recruitment processes for companies to streamline hiring and focus on core operations.
+              </p>
+              <div style={{ fontSize: "0.8rem", fontWeight: "700", color: "var(--accent-copper)", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: "auto", display: "flex", alignItems: "center", gap: "4px" }}>
+                LEARN MORE <ChevronRight size={14} />
+              </div>
+            </div>
+
+            {/* Lateral Hiring */}
+            <div className="editorial-card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                <div style={{ background: "rgba(212,175,55,0.1)", padding: "10px", borderRadius: "50%", display: "flex" }}>
+                  <Briefcase size={20} color="var(--accent-gold)" />
+                </div>
+                <h3 style={{ fontSize: "1.2rem", fontFamily: "var(--font-serif)" }}>Lateral Hiring</h3>
+              </div>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.6", marginBottom: "24px", flexGrow: 1 }}>
+                Our Lateral Hiring service helps organizations choose the best candidates by systematically evaluating qualifications, skills, experience, and attitudes to ensure a perfect fit.
+              </p>
+              <div style={{ fontSize: "0.8rem", fontWeight: "700", color: "var(--accent-gold)", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: "auto", display: "flex", alignItems: "center", gap: "4px" }}>
+                LEARN MORE <ChevronRight size={14} />
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* Expanded Placement Workflow - 5 Steps Line Layout */}
-      <section style={{ backgroundColor: "var(--bg-secondary)", position: "relative", zIndex: 2, padding: "100px 30px" }} id="process-gallery-section">
+      {/* 3. OUR IMPACT (Statistics) */}
+      <section style={{ background: "#ffffff", padding: "80px 30px", borderBottom: "1px solid var(--border-color)" }} id="impact-section">
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "40px", textAlign: "center" }}>
+            
+            <div>
+              <div style={{ fontSize: "3.2rem", fontWeight: "850", color: "var(--accent-gold)", fontFamily: "var(--font-serif)", lineHeight: "1" }}>
+                1,000+
+              </div>
+              <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", margin: "8px 0 4px", fontFamily: "var(--font-serif)" }}>Annual Placements</h4>
+              <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>Mid-to-senior leadership</p>
+            </div>
+
+            <div>
+              <div style={{ fontSize: "3.2rem", fontWeight: "850", color: "var(--accent-teal)", fontFamily: "var(--font-serif)", lineHeight: "1" }}>
+                95%+
+              </div>
+              <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", margin: "8px 0 4px", fontFamily: "var(--font-serif)" }}>Success Rate</h4>
+              <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>On retained executive searches</p>
+            </div>
+
+            <div>
+              <div style={{ fontSize: "3.2rem", fontWeight: "850", color: "var(--accent-copper)", fontFamily: "var(--font-serif)", lineHeight: "1" }}>
+                30+
+              </div>
+              <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", margin: "8px 0 4px", fontFamily: "var(--font-serif)" }}>Exclusive Partners</h4>
+              <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>Trusted repeat clients</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 4. INDUSTRIES WE SERVE */}
+      <section style={{ background: "#ffffff", borderBottom: "1px solid var(--border-color)" }} id="industries-section">
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "80px", alignItems: "start" }}>
+            
+            <div>
+              <span className="section-meta">INDUSTRIES WE SERVE</span>
+              <h2 style={{ fontSize: "2.5rem", fontFamily: "var(--font-serif)", marginBottom: "20px" }}>
+                Deep expertise.<br />
+                Broader perspective.
+              </h2>
+              <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: "1.65" }}>
+                We partner with leading organizations across industries to deliver leaders who make a difference.
+              </p>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }} className="process-grid-container">
+              
+              {/* BFSI */}
+              <div className="editorial-card" style={{ padding: "24px" }}>
+                <h3 style={{ fontSize: "1.1rem", fontFamily: "var(--font-serif)", marginBottom: "8px" }}>BFSI</h3>
+                <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: "1.5", marginBottom: "16px" }}>
+                  Tailored recruitment for banking, financial services, and insurance, ensuring compliance and innovation.
+                </p>
+                <div style={{ display: "inline-flex", alignItems: "center", color: "var(--accent-teal)", fontWeight: "bold" }}>
+                  <ChevronRight size={16} />
+                </div>
+              </div>
+
+              {/* Technology */}
+              <div className="editorial-card" style={{ padding: "24px" }}>
+                <h3 style={{ fontSize: "1.1rem", fontFamily: "var(--font-serif)", marginBottom: "8px" }}>Technology & IT</h3>
+                <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: "1.5", marginBottom: "16px" }}>
+                  Providing tech specialists for software development, cybersecurity, and IT infrastructure projects.
+                </p>
+                <div style={{ display: "inline-flex", alignItems: "center", color: "var(--accent-gold)", fontWeight: "bold" }}>
+                  <ChevronRight size={16} />
+                </div>
+              </div>
+
+              {/* Manufacturing */}
+              <div className="editorial-card" style={{ padding: "24px" }}>
+                <h3 style={{ fontSize: "1.1rem", fontFamily: "var(--font-serif)", marginBottom: "8px" }}>Manufacturing</h3>
+                <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: "1.5", marginBottom: "16px" }}>
+                  Providing skilled talent for efficient production, innovation, and supply chain optimization.
+                </p>
+                <div style={{ display: "inline-flex", alignItems: "center", color: "var(--accent-copper)", fontWeight: "bold" }}>
+                  <ChevronRight size={16} />
+                </div>
+              </div>
+
+              {/* Cross-Industry */}
+              <div className="editorial-card" style={{ padding: "24px" }}>
+                <h3 style={{ fontSize: "1.1rem", fontFamily: "var(--font-serif)", marginBottom: "8px" }}>Cross-Industry</h3>
+                <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: "1.5", marginBottom: "16px" }}>
+                  Supplying specialized and transformational talent across various key sectors globally.
+                </p>
+                <div style={{ display: "inline-flex", alignItems: "center", color: "var(--accent-teal)", fontWeight: "bold" }}>
+                  <ChevronRight size={16} />
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 5. HOW WE WORK (Hiring Process Timeline) */}
+      <section style={{ backgroundColor: "var(--bg-secondary)", position: "relative", zIndex: 2, padding: "100px 30px", borderBottom: "1px solid var(--border-color)" }} id="process-gallery-section">
         <div className="container">
           <div style={{ textAlign: "center", marginBottom: "80px" }}>
             <span className="section-meta" style={{ justifyContent: "center" }}>HOW WE WORK</span>
@@ -499,6 +397,265 @@ export default function Recruitment() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. CLIENT TESTIMONIALS */}
+      <section style={{ background: "#ffffff", borderBottom: "1px solid var(--border-color)" }} id="testimonials-section">
+        <div className="container">
+          <div style={{ textAlign: "center", marginBottom: "60px" }}>
+            <span className="section-meta" style={{ justifyContent: "center" }}>CLIENT TESTIMONIALS</span>
+            <h2 style={{ fontSize: "2.4rem", fontFamily: "var(--font-serif)" }}>What Our Clients Say</h2>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "30px" }}>
+            
+            {/* Testimonial 1 */}
+            <div className="editorial-card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: "1.65", fontStyle: "italic", marginBottom: "30px", flexGrow: 1 }}>
+                &ldquo;The team are ultimate rock stars. Highly professional and experienced — one of the best teams I have ever worked with. Highly responsive, innovative, and they leverage best practices. From kick-off to completion, they never miss a beat.&rdquo;
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ 
+                  width: "44px", 
+                  height: "44px", 
+                  borderRadius: "50%", 
+                  background: "rgba(212,175,55,0.1)", 
+                  color: "var(--accent-gold)", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  fontSize: "0.95rem"
+                }}>
+                  SS
+                </div>
+                <div>
+                  <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)" }}>Sachin Shinde</h4>
+                  <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Director TAG, Fiserv India</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="editorial-card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: "1.65", fontStyle: "italic", marginBottom: "30px", flexGrow: 1 }}>
+                &ldquo;Your team has been doing a tremendous job. They are turning things around quickly, coming up with approaches on their own and truly partnering with us on different initiatives. We are deeply appreciative of all their effort and engagement.&rdquo;
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ 
+                  width: "44px", 
+                  height: "44px", 
+                  borderRadius: "50%", 
+                  background: "rgba(0,167,157,0.1)", 
+                  color: "var(--accent-teal)", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  fontSize: "0.95rem"
+                }}>
+                  DM
+                </div>
+                <div>
+                  <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)" }}>Das Mallya</h4>
+                  <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Head HR, Nihilent Technologies</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div className="editorial-card" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: "1.65", fontStyle: "italic", marginBottom: "30px", flexGrow: 1 }}>
+                &ldquo;I appreciate your team working to create the best team for my project. Not only have they delivered exactly what I need, they&apos;ve offered continued support. Bottom line, HBI is currently providing outstanding service across the board.&rdquo;
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ 
+                  width: "44px", 
+                  height: "44px", 
+                  borderRadius: "50%", 
+                  background: "rgba(179,90,56,0.1)", 
+                  color: "var(--accent-copper)", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  fontSize: "0.95rem"
+                }}>
+                  SB
+                </div>
+                <div>
+                  <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)" }}>Sunandita Bose</h4>
+                  <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Assoc. Global Director, Tata Communications</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 7. GET IN TOUCH (Contact Form Section) */}
+      <section style={{ background: "#ffffff", padding: "100px 30px" }} id="contact-intake-section">
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "60px", alignItems: "start" }}>
+            
+            {/* Left Info Column */}
+            <div>
+              <span className="section-meta">GET IN TOUCH</span>
+              <h2 style={{ fontSize: "2.4rem", fontFamily: "var(--font-serif)", marginBottom: "20px" }}>
+                Let&apos;s Build Your Future Team Together
+              </h2>
+              <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: "1.65", marginBottom: "40px" }}>
+                Tell us about your hiring challenge. Our team will respond within 24 hours with a tailored approach for your organisation.
+              </p>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "30px" }}>
+                
+                <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+                  <MapPin size={22} color="var(--accent-gold)" style={{ flexShrink: 0, marginTop: "4px" }} />
+                  <div>
+                    <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: "4px", fontFamily: "var(--font-serif)" }}>Office</h4>
+                    <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.5" }}>
+                      Sn-17/3/a Supreme Classic, Salunke Vihar Rd,<br />
+                      Khondhwa, Pune 411048
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+                  <Mail size={22} color="var(--accent-teal)" style={{ flexShrink: 0, marginTop: "4px" }} />
+                  <div>
+                    <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: "4px", fontFamily: "var(--font-serif)" }}>Email</h4>
+                    <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
+                      info@luminoidtech.com
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+                  <Clock size={22} color="var(--accent-copper)" style={{ flexShrink: 0, marginTop: "4px" }} />
+                  <div>
+                    <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: "4px", fontFamily: "var(--font-serif)" }}>Business Hours</h4>
+                    <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
+                      Mon - Sat, 9:00 AM - 7:00 PM IST
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Right Form Column */}
+            <div className="editorial-card" style={{ background: "var(--bg-secondary)" }}>
+              <form ref={formRef} onSubmit={sendEmail}>
+                
+                {/* Concatenated hidden parameter bindings for EmailJS template fields */}
+                <input type="hidden" name="from_name" value={`${firstName} ${lastName}`} />
+                <input type="hidden" name="from_email" value={email} />
+                <input type="hidden" name="inquiry_type" value={serviceRequired} />
+                <input type="hidden" name="message" value={`Company: ${company}\nMessage: ${messageText}`} />
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="first-name">First Name *</label>
+                    <input 
+                      type="text" 
+                      id="first-name" 
+                      className="form-input" 
+                      placeholder="e.g. Rahul" 
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required 
+                      disabled={isSending}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="last-name">Last Name *</label>
+                    <input 
+                      type="text" 
+                      id="last-name" 
+                      className="form-input" 
+                      placeholder="e.g. Sharma" 
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required 
+                      disabled={isSending}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="work-email">Work Email *</label>
+                  <input 
+                    type="email" 
+                    id="work-email" 
+                    className="form-input" 
+                    placeholder="e.g. rahul@company.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required 
+                    disabled={isSending}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="company">Company *</label>
+                  <input 
+                    type="text" 
+                    id="company" 
+                    className="form-input" 
+                    placeholder="e.g. Fiserv India" 
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    required 
+                    disabled={isSending}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="service-required">Service Required *</label>
+                  <select 
+                    id="service-required" 
+                    className="form-select"
+                    value={serviceRequired}
+                    onChange={(e) => setServiceRequired(e.target.value)}
+                    disabled={isSending}
+                  >
+                    <option value="Executive Search">Executive Search</option>
+                    <option value="Staff Augmentation">Staff Augmentation</option>
+                    <option value="RPO">RPO (Recruitment Process Outsourcing)</option>
+                    <option value="Lateral Hiring">Lateral Hiring</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="hiring-challenge">Message *</label>
+                  <textarea 
+                    id="hiring-challenge" 
+                    className="form-textarea" 
+                    placeholder="Tell us about your hiring challenge..." 
+                    value={messageText}
+                    onChange={(e) => setMessageText(e.target.value)}
+                    required 
+                    disabled={isSending}
+                  ></textarea>
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="btn-solid" 
+                  style={{ width: "100%", justifyContent: "center", marginTop: "10px", background: "var(--accent-navy)", color: "#ffffff", opacity: isSending ? 0.7 : 1 }}
+                  disabled={isSending}
+                  id="submit-enquiry-btn"
+                >
+                  {isSending ? "SENDING ENQUIRY..." : "SEND ENQUIRY"}
+                </button>
+
+              </form>
+            </div>
+
           </div>
         </div>
       </section>
