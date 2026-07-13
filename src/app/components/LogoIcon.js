@@ -1,0 +1,38 @@
+export default function LogoIcon({ size = 32, color = "#4ade80", className = "" }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 110"
+      fill="none"
+      stroke={color}
+      strokeWidth="6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Leaf Outline */}
+      <path d="M 50 82 C 18 68, 18 35, 50 12 C 82 35, 82 68, 50 82 Z" />
+      
+      {/* Central Stem */}
+      <path d="M 50 82 L 50 32" />
+      
+      {/* Lower Left Branch */}
+      <path d="M 50 64 L 36 50" />
+      <circle cx="36" cy="50" r="5" fill={color} stroke="none" />
+      
+      {/* Upper Left Branch */}
+      <path d="M 50 48 L 40 36" />
+      <circle cx="40" cy="36" r="5" fill={color} stroke="none" />
+      
+      {/* Lower Right Branch */}
+      <path d="M 50 56 L 64 44" />
+      <circle cx="64" cy="44" r="5" fill={color} stroke="none" />
+      
+      {/* Ground/Roots Lines at the bottom */}
+      <path d="M 32 92 L 68 92" />
+      <path d="M 42 100 L 58 100" />
+    </svg>
+  );
+}
