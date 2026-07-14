@@ -13,7 +13,7 @@
   --accent-navy: #0a1128;
   --border-color: #cbd5e1;
   --font-sans: var(--font-sans), -apple-system, sans-serif;
-  --font-serif: var(--font-heading), var(--font-sans); /* Ensure all headings are clean sans-serif */
+  --font-serif: var(--font-serif), Georgia, serif;
   --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

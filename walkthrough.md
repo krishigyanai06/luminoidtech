@@ -1,14 +1,16 @@
-# Walkthrough: Sourcing Copy Enhancement
+# Walkthrough: SVG Logo Icon Restoration
 
-We have completed the styling and copywriting updates on the **Luminoid Technologies** website. In accordance with your request, we have updated the homepage Hero tagline with a unique, narrative-driven description:
+We have completed the styling and structural updates on the **Luminoid Technologies** website. In accordance with your request, we have restored the original animated SVG logo icon mark:
 
 ---
 
-## 🎨 Content & Visual Enhancements
+## 🎨 Branding Layout Restorations
 
-### 1. Narrative Sourcing Description
-- Replaced the previous generic list tagline with a parallel, three-part clause explaining the exact operational value of our three divisions:
-  *"At Luminoid, we engineer the resilient backend architectures that scale enterprise software, source the visionary leadership talent who build global technical teams, and deploy the smart IoT telemetry nodes that coordinate precision farming through KrishiGyan AI."*
+### 1. Navbar Logo Mark Restoration (`Navbar.js`)
+- Replaced the corporate image tag (`logo.jpg`) with the original animated SVG `<LogoIcon>` component (size: `32px`, color: `#00a79d`) next to the brand name text **"Luminoid Technologies"**.
+
+### 2. Footer Logo Mark Restoration (`layout.js`)
+- Replaced the image tag inside the footer link with the original SVG `<LogoIcon>` component (size: `24px`, color: `#00a79d`) next to the footer text brand name **"Luminoid Technologies"**.
 
 ---
 
@@ -22,11 +24,11 @@ The visual layout compiles cleanly with Next.js Turbopack:
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 16.7s
+✓ Compiled successfully in 29.6s
   Running TypeScript ...
-  Finished TypeScript in 572ms ...
+  Finished TypeScript in 4.5s ...
   Generating static pages (7/7) ...
-✓ Generating static pages successfully in 1110ms
+✓ Generating static pages successfully in 2.0s
 
 Route (app)
 ┌ ○ /

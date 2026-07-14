@@ -1,4 +1,4 @@
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Link from "next/link";
@@ -10,10 +10,10 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-heading",
+const playfair = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata = {
@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plusJakarta.variable}`}
+      className={`${inter.variable} ${playfair.variable}`}
       style={{ scrollBehavior: "smooth" }}
     >
       <body style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>

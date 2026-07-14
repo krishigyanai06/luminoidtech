@@ -6,7 +6,6 @@ import {
   ArrowRight, ArrowUpRight, Cpu, Brain, Users, Award, Shield, 
   Sparkles, CheckCircle2, Radio, Eye, Server, Layers, Quote, ShieldCheck, ChevronDown
 } from "lucide-react";
-import LogoIcon from "./components/LogoIcon";
 
 export default function Home() {
   return (
