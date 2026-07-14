@@ -1,16 +1,14 @@
-# Walkthrough: Testimonial Section Clean-Up
+# Walkthrough: Sourcing Copy Enhancement
 
-We have completed the styling and content updates on the **Luminoid Technologies** website. In accordance with your request, we have removed all placeholder Client Testimonials from the site layout since this is a new brand domain:
+We have completed the styling and copywriting updates on the **Luminoid Technologies** website. In accordance with your request, we have updated the homepage Hero tagline with a unique, narrative-driven description:
 
 ---
 
-## 🎨 Content & Layout Enhancements
+## 🎨 Content & Visual Enhancements
 
-### 1. Homepage Testimonials Removal (`page.js`)
-- Deleted the entire "CLIENT TESTIMONIALS / What Our Partners Say" section from the homepage to prevent displaying placeholder client reviews.
-
-### 2. Recruitment Page Testimonials Removal (`recruitment/page.js`)
-- Deleted the entire "CLIENT TESTIMONIALS / What Our Clients Say" section from the recruitment page to ensure the layout remains clean and professional.
+### 1. Narrative Sourcing Description
+- Replaced the previous generic list tagline with a parallel, three-part clause explaining the exact operational value of our three divisions:
+  *"At Luminoid, we engineer the resilient backend architectures that scale enterprise software, source the visionary leadership talent who build global technical teams, and deploy the smart IoT telemetry nodes that coordinate precision farming through KrishiGyan AI."*
 
 ---
 
@@ -24,11 +22,11 @@ The visual layout compiles cleanly with Next.js Turbopack:
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 17.4s
+✓ Compiled successfully in 16.7s
   Running TypeScript ...
-  Finished TypeScript in 636ms ...
+  Finished TypeScript in 572ms ...
   Generating static pages (7/7) ...
-✓ Generating static pages successfully in 1459ms
+✓ Generating static pages successfully in 1110ms
 
 Route (app)
 ┌ ○ /

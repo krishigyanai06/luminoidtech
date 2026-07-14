@@ -45,11 +45,11 @@ export default function Home() {
             <p style={{
               fontSize: "clamp(1.05rem, 1.4vw, 1.25rem)",
               color: "var(--text-secondary)",
-              maxWidth: "800px",
+              maxWidth: "850px",
               margin: "0 auto 35px",
               lineHeight: "1.65"
             }} className="animate-fade-in-up delay-100">
-              We architect next-generation software platforms, deploy autonomous AI agent pipelines, place transformational leaders across IT &amp; BFSI sectors, and power precision agricultural IoT telemetry via KrishiGyan AI.
+              At Luminoid, we engineer the resilient backend architectures that scale enterprise software, source the visionary leadership talent who build global technical teams, and deploy the smart IoT telemetry nodes that coordinate precision farming through KrishiGyan AI.
             </p>
 
             {/* Horizontal Tags/Chips */}
