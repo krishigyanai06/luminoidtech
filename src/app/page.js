@@ -91,27 +91,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brand Logos Strip */}
-      <section style={{ background: "#0b1329", padding: "30px 0", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="container">
-          <p style={{ textAlign: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent-gold)", marginBottom: "20px", fontWeight: "700" }}>
-            Trusted By Leading Enterprises & Sourcing Partners
-          </p>
-          <div style={{ 
-            display: "flex", 
-            justifyContent: "space-around", 
-            alignItems: "center", 
-            flexWrap: "wrap", 
-            gap: "35px" 
-          }} className="brand-logos-row">
-            {["Fiserv India", "Nihilent Technologies", "Tata Communications", "KrishiGyan AI", "CapitalTrust"].map((brand, i) => (
-              <div key={i} className="brand-logo-text">
-                {brand}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* 2. Three Pillars Section */}
       <section style={{ background: "#ffffff", borderBottom: "1px solid #e2e8f0", padding: "100px 30px" }} id="about-section">
