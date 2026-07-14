@@ -115,17 +115,6 @@ section {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.section-meta::before {
-  content: '';
-  display: block;
-  width: 12px;
-  height: 2px;
-  background-color: var(--accent-gold);
 }
 
 /* Glassmorphic/Clean Navbar */
@@ -459,10 +448,36 @@ section {
     justify-content: center !important;
     gap: 25px !important;
   }
+  .hero-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .desktop-only-hero-visual {
+    display: none !important;
+  }
+}
+
+.brand-logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  transition: var(--transition-smooth);
+  cursor: default;
 }
 
 .brand-logo-text:hover {
   color: var(--accent-gold) !important;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+}
+
+.hero-nav-card {
+  transition: var(--transition-smooth);
+}
+
+.hero-nav-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(10, 17, 40, 0.05);
+  background: rgba(255, 255, 255, 0.95) !important;
 }
 

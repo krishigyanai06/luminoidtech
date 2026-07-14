@@ -11,10 +11,10 @@ export default function Services() {
     {
       id: "recruitment",
       number: "01",
-      title: "Executive Recruitment",
+      title: "Talent Acquisition",
       tagline: "We source and place senior software developers, systems architects, and BFSI operations leads.",
       linkUrl: "/recruitment",
-      linkText: "Go to Recruitment Portal",
+      linkText: "Go to Talent Portal",
       items: [
         { name: "Permanent IT Recruitment", desc: "Placing top-tier software engineers and QA developers." },
         { name: "BFSI Executive Search", desc: "Finding risk managers, compliance officers, and finance directors." },
@@ -107,7 +107,7 @@ export default function Services() {
                     display: "block", 
                     marginBottom: "15px" 
                   }}>
-                    {area.number} &mdash;
+                    {area.number} /
                   </span>
                   <h2 style={{ fontSize: "2rem", marginBottom: "16px", fontFamily: "var(--font-serif)" }}>{area.title}</h2>
                   <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: "1.65", marginBottom: "30px" }}>

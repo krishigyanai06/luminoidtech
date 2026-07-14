@@ -1,27 +1,16 @@
-# Walkthrough: Candidate Registration Form Operational Integration
+# Walkthrough: Testimonial Section Clean-Up
 
-We have completed the final visual and functional adjustments on the **Luminoid Technologies** website. In accordance with your request, we have resolved the compilation and runtime errors on the Candidate Registration form, making it fully operational with EmailJS and SweetAlert2.
+We have completed the styling and content updates on the **Luminoid Technologies** website. In accordance with your request, we have removed all placeholder Client Testimonials from the site layout since this is a new brand domain:
 
 ---
 
-## 🛠️ Functional Enhancements
+## 🎨 Content & Layout Enhancements
 
-### 1. Fixed undefined `setEmail` Handler
-- Corrected the onChange event handler for the Email input field in **`src/app/recruitment/page.js`** from calling `setEmail(e.target.value)` (which was throwing a runtime reference error) to calling the correct state handler: `setCandidateEmail(e.target.value)`.
+### 1. Homepage Testimonials Removal (`page.js`)
+- Deleted the entire "CLIENT TESTIMONIALS / What Our Partners Say" section from the homepage to prevent displaying placeholder client reviews.
 
-### 2. Operational EmailJS Sourcing Integration
-- Configured a React `formRef` on the registration form container.
-- Enabled submission dispatch using `emailjs.sendForm` with the loaded env keys.
-- **Form Value Mapping**:
-  - Name input `name="from_name"` binds to `{{from_name}}`.
-  - Email input `name="from_email"` binds to `{{from_email}}`.
-  - Selected expertise area select `name="inquiry_type"` binds to `{{inquiry_type}}`.
-  - Configured a hidden input: `<input type="hidden" name="message" value="Resume brief uploaded: [file_name]" />` to safely map the simulated resume file upload event information directly to the `{{message}}` EmailJS template variable.
-
-### 3. Beautiful SweetAlert Popups
-- Imported `sweetalert2` in `recruitment/page.js` to replace browser alerts.
-- **Registration Success**: Launches a green alert box confirming that the brief has been logged with our Pune sourcing desk.
-- **Registration Failures**: Displays a red alert box detailing the raw error code from the EmailJS API.
+### 2. Recruitment Page Testimonials Removal (`recruitment/page.js`)
+- Deleted the entire "CLIENT TESTIMONIALS / What Our Clients Say" section from the recruitment page to ensure the layout remains clean and professional.
 
 ---
 
@@ -35,11 +24,11 @@ The visual layout compiles cleanly with Next.js Turbopack:
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 33.6s
+✓ Compiled successfully in 17.4s
   Running TypeScript ...
-  Finished TypeScript in 627ms ...
+  Finished TypeScript in 636ms ...
   Generating static pages (7/7) ...
-✓ Generating static pages successfully in 3.8s
+✓ Generating static pages successfully in 1459ms
 
 Route (app)
 ┌ ○ /

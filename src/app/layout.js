@@ -17,12 +17,12 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: "Luminoid | Recruitment & Custom Software Studio",
-  description: "Luminoid is a Pune-based agency specializing in IT & BFSI executive recruitment and custom software development (SaaS, ERP portals, database engines, and AI agent workflows).",
+  title: "Luminoid | Talent Acquisition & Custom Software Studio",
+  description: "Luminoid is a Pune-based agency specializing in IT & BFSI talent acquisition and custom software development (SaaS, ERP portals, database engines, and AI agent workflows).",
   metadataBase: new URL("https://luminoidtech.com"),
   openGraph: {
-    title: "Luminoid | Recruitment & Custom Software Studio",
-    description: "Pune-based technical partners. Specialized IT & BFSI executive recruitment and custom software development.",
+    title: "Luminoid | Talent Acquisition & Custom Software Studio",
+    description: "Pune-based technical partners. Specialized IT & BFSI talent acquisition and custom software development.",
     type: "website",
   }
 };
@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
             <div className="footer-col">
               <h3>Services</h3>
               <ul className="footer-links">
-                <li><Link href="/recruitment" id="footer-link-rec">Executive Recruitment</Link></li>
+                <li><Link href="/recruitment" id="footer-link-rec">Talent Acquisition</Link></li>
                 <li><Link href="/services" id="footer-link-tech">Technology Services</Link></li>
                 <li>
                   <a href="https://KrishiGyanAI.com" target="_blank" rel="noopener noreferrer" id="footer-link-krishi">
