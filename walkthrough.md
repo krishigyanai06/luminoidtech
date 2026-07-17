@@ -45,8 +45,8 @@ We have completed the styling and structural updates on the **Luminoid Technolog
 - Redesigned the homepage hero to feature `hero_bg.jpg` wrapped in a lighter blue/teal gradient overlay (`linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.65))`) to allow the background office photo to appear brighter while preserving high text legibility.
 
 ### 2. Consolidated High-Impact Copy
-- Concise Headline: "Build Your Future with Custom Software & Top Tech Talent"
-- Concise Tagline: "Accelerate innovation. Find the perfect fit. Custom Development & Recruitment for global success."
+- Headline: "Custom AI Agent Software Development, Talent Acquisition, & Agritech"
+- Tagline: "Accelerate innovation. Find the perfect fit. Custom Development, Recruitment, and Smart Agritech IoT."
 
 ### 3. Dynamic Transparent Header
 - Modified `Navbar.js` to dynamically detect if the user is on the homepage (`/`) and unscrolled.
@@ -68,6 +68,15 @@ We have completed the styling and structural updates on the **Luminoid Technolog
 - **Recruitment** (`recruitment/page.js`): Updated "Our Impact" statistics to `.responsive-grid-3`, and the "Industries We Serve" & "Get In Touch" sections to `.responsive-grid-split`.
 - **Services** (`services/page.js`): Updated the detailed capability block layouts to `.responsive-grid-split-services`.
 - **Contact** (`contact/page.js`): Updated the form and address layout wrapper to `.responsive-grid-split`.
+
+---
+
+## ☘️ Favicon Integration
+
+### 1. Root favicon.svg
+- Created [icon.svg](file:///c:/Users/dell/Desktop/LumitechWeb/src/app/icon.svg) using the vector geometry of the Luminoid leaf-tree logo.
+- Colorized the SVG in the brand's signature teal color (`#00a79d`) for high visual coherence.
+- Next.js automatically maps this file to route `/icon.svg` and populates the appropriate favicon `<link>` elements on page headers.
 
 ---
 
