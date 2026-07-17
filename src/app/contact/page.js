@@ -102,7 +102,7 @@ function ContactForm() {
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "60px", alignItems: "start" }}>
+    <div className="responsive-grid-split" style={{ alignItems: "start" }}>
       
       {/* Left Column: Contacts */}
       <div style={{ display: "flex", flexDirection: "column", gap: "30px" }} id="contact-info-col">

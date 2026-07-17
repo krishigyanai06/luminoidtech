@@ -2,12 +2,17 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import LogoIcon from "./LogoIcon";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const isHome = pathname === "/";
+  const isDarkNavbar = isHome && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,14 +29,14 @@ export default function Navbar() {
   return (
     <>
       <header 
-        className="navbar" 
+        className={`navbar ${isDarkNavbar ? "navbar-dark" : ""}`} 
         style={{
           boxShadow: isScrolled ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
-          background: isScrolled ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.95)"
+          background: isScrolled ? "rgba(255, 255, 255, 0.98)" : "transparent"
         }}
       >
         <Link href="/" className="nav-logo" id="nav-logo-link" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <LogoIcon size={32} color="#00a79d" className="floating-logo" />
+          <LogoIcon size={32} color={isDarkNavbar ? "#ffffff" : "#00a79d"} className="floating-logo" />
           Luminoid Technologies
         </Link>
 

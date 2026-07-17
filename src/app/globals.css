@@ -189,6 +189,35 @@ section {
   cursor: pointer;
 }
 
+/* Dark Navbar variant for Homepage Hero overlay */
+.navbar-dark {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+}
+
+.navbar-dark .nav-logo {
+  color: #ffffff !important;
+}
+
+.navbar-dark .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.navbar-dark .nav-link:hover {
+  color: var(--accent-teal) !important;
+}
+
+.navbar-dark .mobile-nav-toggle {
+  color: #ffffff !important;
+}
+
+.navbar-dark .nav-btn {
+  background: var(--accent-teal) !important;
+  border: 1px solid var(--accent-teal) !important;
+  color: #ffffff !important;
+}
+
 /* Editorial Cards - Rounded, Clean White, Grey Borders with hover states */
 .editorial-card {
   background: #ffffff;
@@ -408,7 +437,13 @@ section {
   gap: 20px;
   color: #94a3b8;
   font-size: 0.8rem;
-  font-family: var(--font-sans);
+}
+
+.hero-grid-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
 }
 
 /* Responsive Rules */
@@ -479,5 +514,92 @@ section {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(10, 17, 40, 0.05);
   background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Infinite Brand Marquee Slider */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 60px;
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.marquee-content {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+  min-width: 100%;
+  gap: 60px;
+  animation: marquee 12s linear infinite;
+}
+
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+.partner-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 65px;
+  width: 180px;
+  transition: var(--transition-smooth);
+}
+
+.partner-logo-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.partner-logo-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Responsive Grid Utilities */
+.responsive-grid-split {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+}
+
+.responsive-grid-split-services {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+}
+
+.responsive-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 992px) {
+  .responsive-grid-split,
+  .responsive-grid-split-services {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  
+  .responsive-grid-3 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .responsive-grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
 }
 

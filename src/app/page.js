@@ -10,15 +10,19 @@ import {
 export default function Home() {
   return (
     <div>
-      {/* 1. Hero Section - Centered Luxury Typographic Redesign */}
+      {/* 1. Hero Section - Centered Overlay Image Redesign */}
       <section style={{ 
-        minHeight: "75vh", 
+        minHeight: "90vh", 
         display: "flex", 
         alignItems: "center", 
-        paddingTop: "150px",
-        paddingBottom: "90px",
-        background: "radial-gradient(circle at 50% 50%, rgba(0, 167, 157, 0.06) 0%, rgba(212, 175, 55, 0.04) 50%, rgba(255, 255, 255, 0) 100%)",
-        borderBottom: "1px solid #e2e8f0"
+        paddingTop: "160px",
+        paddingBottom: "100px",
+        backgroundImage: "linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.65)), url('/images/hero_bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+        position: "relative"
       }}>
         <div className="container" style={{ textAlign: "center" }}>
           <div style={{ maxWidth: "950px", margin: "0 auto" }}>
@@ -33,22 +37,19 @@ export default function Home() {
               fontWeight: "800",
               lineHeight: "1.12",
               marginBottom: "24px",
-              color: "var(--text-primary)"
+              color: "#ffffff"
             }} id="hero-headline" className="animate-fade-in-up">
-              Luminoid Technologies:<br />
-              <span style={{ color: "var(--accent-teal)" }}>Custom Software</span>,{" "}
-              <span style={{ color: "var(--accent-gold)" }}>Sourcing</span>, &{" "}
-              <span style={{ color: "var(--accent-copper)" }}>Agritech IoT</span>
+              Custom AI Agent <span style={{ color: "var(--accent-teal)" }}>Software Development</span>, <span style={{ color: "var(--accent-gold)" }}>Talent Acquisition</span>, &amp; <span style={{ color: "var(--accent-copper)" }}>Agritech</span>
             </h1>
 
             <p style={{
               fontSize: "clamp(1.05rem, 1.4vw, 1.25rem)",
-              color: "var(--text-secondary)",
+              color: "#cbd5e1",
               maxWidth: "850px",
               margin: "0 auto 35px",
               lineHeight: "1.65"
             }} className="animate-fade-in-up delay-100">
-              At Luminoid, we engineer the resilient backend architectures that scale enterprise software, source the visionary leadership talent who build global technical teams, and deploy the smart IoT telemetry nodes that coordinate precision farming through KrishiGyan AI.
+              Accelerate innovation. Find the perfect fit. Custom Development, Recruitment, and Smart Agritech IoT.
             </p>
 
             {/* Horizontal Tags/Chips */}
@@ -57,9 +58,9 @@ export default function Home() {
                 <span key={idx} style={{ 
                   fontSize: "0.8rem", 
                   fontWeight: "600", 
-                  color: "var(--text-secondary)", 
-                  background: "var(--bg-secondary)", 
-                  border: "1px solid var(--border-color)",
+                  color: "#cbd5e1", 
+                  background: "rgba(255, 255, 255, 0.05)", 
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
                   padding: "6px 16px", 
                   borderRadius: "20px",
                   transition: "var(--transition-smooth)"
@@ -75,15 +76,15 @@ export default function Home() {
               flexWrap: "wrap" 
             }} className="animate-fade-in-up delay-200">
               <Link href="/services">
-                <button className="btn-dark" style={{ background: "var(--accent-navy)", display: "inline-flex", alignItems: "center", gap: "8px" }} id="hero-btn-method">
-                  View Capabilities <ChevronDown size={16} />
+                <button className="btn-solid" style={{ background: "var(--accent-teal)", border: "none", color: "#ffffff", padding: "14px 32px", borderRadius: "4px", fontWeight: "600", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "8px" }} id="hero-btn-method">
+                  Start Your Project <ArrowRight size={16} />
                 </button>
               </Link>
-              <a href="https://krishigyanai.com" target="_blank" rel="noopener noreferrer">
-                <button className="btn-primary" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }} id="hero-btn-kg">
-                  Visit KrishiGyan AI <ArrowUpRight size={14} />
+              <Link href="/recruitment">
+                <button className="btn-primary" style={{ color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.4)", background: "rgba(255, 255, 255, 0.03)", display: "inline-flex", alignItems: "center", gap: "8px" }} id="hero-btn-recruitment">
+                  Find Top Talent <ArrowUpRight size={14} />
                 </button>
-              </a>
+              </Link>
             </div>
 
           </div>
@@ -91,16 +92,10 @@ export default function Home() {
       </section>
 
 
-
       {/* 2. Three Pillars Section */}
       <section style={{ background: "#ffffff", borderBottom: "1px solid #e2e8f0", padding: "100px 30px" }} id="about-section">
         <div className="container">
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "1.1fr 1fr", 
-            gap: "80px",
-            alignItems: "center"
-          }}>
+          <div className="responsive-grid-split" style={{ alignItems: "center" }}>
             <div>
               <span className="section-meta">COHESIVE ENGINEERING</span>
               <h2 style={{ fontSize: "2.2rem", marginBottom: "24px", fontFamily: "var(--font-serif)", fontWeight: "800" }}>
@@ -315,6 +310,47 @@ export default function Home() {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* Incubation & Government Partners Marquee Slider (2 steps above footer) */}
+      <section style={{ background: "#f8fafc", padding: "60px 0", borderTop: "1px solid var(--border-color)", borderBottom: "1px solid var(--border-color)", overflow: "hidden" }} id="partners-section">
+        <div className="container">
+          <p style={{ textAlign: "center", fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent-gold)", marginBottom: "25px", fontWeight: "700" }}>
+            INCUBATION &amp; TECHNOLOGY PARTNERS
+          </p>
+          
+          <div className="marquee-container">
+            {/* Loop 1 */}
+            <div className="marquee-content">
+              {[
+                { src: "/images/partners/partner1.jpg", alt: "STPI (Software Technology Parks of India)" },
+                { src: "/images/partners/partner2.png", alt: "Digital India" },
+                { src: "/images/partners/partner3.png", alt: "Rayat CIII / Scitech CIII" },
+                { src: "/images/partners/partner4.png", alt: "Ministry of Electronics & IT (MeitY)" },
+                { src: "/images/partners/nvidia.jpg", alt: "NVIDIA Inception Program" }
+              ].map((partner, idx) => (
+                <div key={`p1-${idx}`} className="partner-logo-wrapper">
+                  <img src={partner.src} alt={partner.alt} className="partner-logo-img" />
+                </div>
+              ))}
+            </div>
+            
+            {/* Loop 2 (Duplicated for seamless transition) */}
+            <div className="marquee-content" aria-hidden="true">
+              {[
+                { src: "/images/partners/partner1.jpg", alt: "STPI (Software Technology Parks of India)" },
+                { src: "/images/partners/partner2.png", alt: "Digital India" },
+                { src: "/images/partners/partner3.png", alt: "Rayat CIII / Scitech CIII" },
+                { src: "/images/partners/partner4.png", alt: "Ministry of Electronics & IT (MeitY)" },
+                { src: "/images/partners/nvidia.jpg", alt: "NVIDIA Inception Program" }
+              ].map((partner, idx) => (
+                <div key={`p2-${idx}`} className="partner-logo-wrapper">
+                  <img src={partner.src} alt={partner.alt} className="partner-logo-img" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

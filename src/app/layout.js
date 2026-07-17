@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         {/* Main Content Area */}
-        <main style={{ flex: 1, paddingTop: "80px" }}>
+        <main style={{ flex: 1 }}>
           {children}
         </main>
 

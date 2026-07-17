@@ -90,10 +90,8 @@ export default function Services() {
               <div 
                 key={area.id} 
                 id={`service-area-${area.id}`}
+                className="responsive-grid-split-services"
                 style={{ 
-                  display: "grid",
-                  gridTemplateColumns: "1fr 2fr",
-                  gap: "60px",
                   borderBottom: "1px solid var(--border-color)",
                   paddingBottom: "60px"
                 }}

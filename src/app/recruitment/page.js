@@ -112,28 +112,46 @@ export default function Recruitment() {
     <div style={{ position: "relative" }}>
       
       {/* 1. Hero Block */}
-      <section style={{ paddingTop: "130px", paddingBottom: "70px", position: "relative", zIndex: 2 }}>
-        <div className="container" style={{ textAlign: "center" }}>
-          <span className="section-meta" style={{ justifyContent: "center" }}>Luminoid Sourcing</span>
-          <h1 style={{ 
-            fontSize: "clamp(2.2rem, 5vw, 4rem)", 
-            marginTop: "16px",
-            marginBottom: "24px",
-            fontFamily: "var(--font-serif)",
-            lineHeight: "1.15"
-          }}>
-            Empowering Businesses.<br />
-            With Exceptional Talent.
-          </h1>
-          <p style={{ 
-            color: "var(--text-secondary)", 
-            maxWidth: "750px", 
-            margin: "0 auto", 
-            fontSize: "1.15rem",
-            lineHeight: "1.6"
-          }}>
-            Unlocking the future of work by connecting visionary organizations with transformational talent worldwide.
-          </p>
+      <section style={{ paddingTop: "140px", paddingBottom: "70px", position: "relative", zIndex: 2 }}>
+        <div className="container">
+          <div className="hero-grid-container">
+            <div style={{ textAlign: "left" }}>
+              <span className="section-meta" style={{ justifyContent: "flex-start" }}>Luminoid Sourcing</span>
+              <h1 style={{ 
+                fontSize: "clamp(2.2rem, 5vw, 3.8rem)", 
+                marginTop: "16px",
+                marginBottom: "24px",
+                fontFamily: "var(--font-serif)",
+                lineHeight: "1.15"
+              }}>
+                Empowering Businesses.<br />
+                With Exceptional Talent.
+              </h1>
+              <p style={{ 
+                color: "var(--text-secondary)", 
+                maxWidth: "600px", 
+                fontSize: "1.15rem",
+                lineHeight: "1.6"
+              }}>
+                Unlocking the future of work by connecting visionary organizations with transformational talent worldwide.
+              </p>
+            </div>
+            
+            <div style={{ 
+              overflow: "hidden", 
+              borderRadius: "12px", 
+              border: "1px solid var(--border-color)", 
+              height: "380px", 
+              boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
+              position: "relative"
+            }}>
+              <img 
+                src="/images/recruitment_consultation.jpg" 
+                alt="Luminoid Executive Search Consultation" 
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -218,7 +236,7 @@ export default function Recruitment() {
       {/* 3. OUR IMPACT (Statistics) */}
       <section style={{ background: "#ffffff", padding: "80px 30px", borderBottom: "1px solid var(--border-color)" }} id="impact-section">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "40px", textAlign: "center" }}>
+          <div className="responsive-grid-3" style={{ gap: "40px", textAlign: "center" }}>
             
             <div>
               <div style={{ fontSize: "3.2rem", fontWeight: "850", color: "var(--accent-gold)", fontFamily: "var(--font-serif)", lineHeight: "1" }}>
@@ -251,7 +269,7 @@ export default function Recruitment() {
       {/* 4. INDUSTRIES WE SERVE */}
       <section style={{ background: "#ffffff", borderBottom: "1px solid var(--border-color)" }} id="industries-section">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "80px", alignItems: "start" }}>
+          <div className="responsive-grid-split" style={{ alignItems: "start" }}>
             
             <div>
               <span className="section-meta">INDUSTRIES WE SERVE</span>
@@ -259,9 +277,23 @@ export default function Recruitment() {
                 Deep expertise.<br />
                 Broader perspective.
               </h2>
-              <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: "1.65" }}>
+              <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: "1.65", marginBottom: "30px" }}>
                 We partner with leading organizations across industries to deliver leaders who make a difference.
               </p>
+              <div style={{ 
+                overflow: "hidden", 
+                borderRadius: "8px", 
+                border: "1px solid var(--border-color)", 
+                width: "100%", 
+                height: "280px", 
+                boxShadow: "0 10px 30px rgba(0,0,0,0.04)" 
+              }}>
+                <img 
+                  src="/images/recruitment_office.jpg" 
+                  alt="Luminoid Office Collaboration" 
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </div>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }} className="process-grid-container">
@@ -377,6 +409,7 @@ export default function Recruitment() {
                 }}>
                   STEP {idx + 1}
                 </div>
+                
 
                 {/* Step Title */}
                 <h3 style={{ 
@@ -406,7 +439,7 @@ export default function Recruitment() {
       {/* 7. GET IN TOUCH (Contact Form Section) */}
       <section style={{ background: "#ffffff", padding: "100px 30px" }} id="contact-intake-section">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "60px", alignItems: "start" }}>
+          <div className="responsive-grid-split" style={{ alignItems: "start" }}>
             
             {/* Left Info Column */}
             <div>
