@@ -12,7 +12,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const isHome = pathname === "/";
-  const isDarkNavbar = isHome && !isScrolled;
+  const isDarkNavbar = isHome && !isScrolled && !isOpen;
 
   useEffect(() => {
     const handleScroll = () => {

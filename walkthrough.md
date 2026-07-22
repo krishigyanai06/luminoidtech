@@ -80,6 +80,18 @@ We have completed the styling and structural updates on the **Luminoid Technolog
 
 ---
 
+## 🔍 Site Review & Code Quality Fixes
+
+### 1. Mobile Menu Drawer Overlay Contrast Fix
+- Fixed a bug in [Navbar.js](file:///c:/Users/dell/Desktop/LumitechWeb/src/app/components/Navbar.js) where opening the mobile menu drawer on the homepage kept the transparent `.navbar-dark` text style.
+- The logo and hamburger `X` close icon now correctly toggle to their standard dark contrast color (`var(--text-primary)`) when the mobile menu is active, making the close button visible and clickable on light backgrounds.
+
+### 2. React 19 / ESLint Compilation Fix
+- Fixed a critical linter error in [contact/page.js](file:///c:/Users/dell/Desktop/LumitechWeb/src/app/contact/page.js) where calling `setInquiryType` synchronously in a `useEffect` hook caused cascading renders.
+- Refactored by defining static `categories` list outside the component and shifting to React-recommended render-phase state syncing. Running `npm run lint` now completes with **zero errors**.
+
+---
+
 ## 🛠️ Verification Results
 
 ### Successful Production Build

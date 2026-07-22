@@ -9,21 +9,32 @@ import {
   CheckCircle, Globe, Shield, Clock, Brain 
 } from "lucide-react";
 
+const categories = [
+  { value: "general", label: "General Inquiry" },
+  { value: "recruitment", label: "Recruitment Services (IT & BFSI)" },
+  { value: "software", label: "Software & SaaS Solutions" },
+  { value: "ai", label: "Artificial Intelligence & Agents" },
+  { value: "partnerships", label: "Partnerships & Joint Ventures" },
+  { value: "investors", label: "Investor Relations" },
+  { value: "agritech", label: "Agritech & IoT (KrishiGyan AI)" }
+];
+
 function ContactForm() {
   const searchParams = useSearchParams();
   const form = useRef();
 
-  const categories = [
-    { value: "general", label: "General Inquiry" },
-    { value: "recruitment", label: "Recruitment Services (IT & BFSI)" },
-    { value: "software", label: "Software & SaaS Solutions" },
-    { value: "ai", label: "Artificial Intelligence & Agents" },
-    { value: "partnerships", label: "Partnerships & Joint Ventures" },
-    { value: "investors", label: "Investor Relations" },
-    { value: "agritech", label: "Agritech & IoT (KrishiGyan AI)" }
-  ];
+  const inquiryParam = searchParams.get("inquiry");
+  const match = categories.find(c => c.value === inquiryParam);
+  const targetInquiry = match ? match.value : "general";
 
-  const [inquiryType, setInquiryType] = useState("general");
+  const [inquiryType, setInquiryType] = useState(targetInquiry);
+  const [prevInquiry, setPrevInquiry] = useState(targetInquiry);
+
+  if (targetInquiry !== prevInquiry) {
+    setPrevInquiry(targetInquiry);
+    setInquiryType(targetInquiry);
+  }
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -31,16 +42,6 @@ function ContactForm() {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', or 'error'
-
-  useEffect(() => {
-    const inquiryParam = searchParams.get("inquiry");
-    if (inquiryParam) {
-      const match = categories.find(c => c.value === inquiryParam);
-      if (match) {
-        setInquiryType(match.value);
-      }
-    }
-  }, [searchParams]);
 
   const sendEmail = (e) => {
     e.preventDefault();

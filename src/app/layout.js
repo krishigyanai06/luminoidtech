@@ -17,12 +17,21 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "Luminoid | Talent Acquisition & Custom Software Studio",
-  description: "Luminoid is a Pune-based agency specializing in IT & BFSI talent acquisition and custom software development (SaaS, ERP portals, database engines, and AI agent workflows).",
+  title: "Luminoid Technologies Private Limited | AI-Driven Enterprise & Talent Acquisition",
+  description: "Luminoid Technologies Private Limited is a leading AI-driven enterprise specializing in custom software development, IT & BFSI talent acquisition, and advanced agritech IoT solutions.",
   metadataBase: new URL("https://luminoidtech.com"),
+  keywords: [
+    "Luminoid Technologies Private Limited",
+    "Luminoid Technologies",
+    "AI-driven enterprise",
+    "Talent Acquisition",
+    "Custom Software Studio",
+    "IT Recruitment",
+    "BFSI Sourcing"
+  ],
   openGraph: {
-    title: "Luminoid | Talent Acquisition & Custom Software Studio",
-    description: "Pune-based technical partners. Specialized IT & BFSI talent acquisition and custom software development.",
+    title: "Luminoid Technologies Private Limited | AI-Driven Enterprise & Talent Acquisition",
+    description: "Luminoid Technologies Private Limited is a leading AI-driven enterprise specializing in custom software development, IT & BFSI talent acquisition, and advanced agritech IoT solutions.",
     type: "website",
   }
 };

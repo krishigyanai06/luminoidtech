@@ -102,7 +102,7 @@ export default function Home() {
                 Built on Three Pillars of Technical Excellence
               </h2>
               <p style={{ color: "var(--text-secondary)", marginBottom: "20px" }}>
-                Luminoid operates at the intersection of custom software engineering, human capital recruitment, and agricultural telemetry, delivering precision across every single vertical.
+                Luminoid Technologies Private Limited is an AI-driven enterprise operating at the intersection of custom software engineering, human capital recruitment, and agricultural telemetry, delivering precision across every single vertical.
               </p>
               <p style={{ color: "var(--text-secondary)", marginBottom: "30px" }}>
                 Whether we are automating credit underwriting models for a lender, mapping leadership sourcing pipelines for tech GCCs, or coordinating smart soil probes with farmers, we focus on real-world operational execution.
