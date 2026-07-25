@@ -108,7 +108,7 @@ function ContactForm() {
       {/* Left Column: Contacts */}
       <div style={{ display: "flex", flexDirection: "column", gap: "30px" }} id="contact-info-col">
         <div className="editorial-card">
-          <h2 style={{ fontSize: "1.8rem", marginBottom: "20px", fontFamily: "var(--font-serif)" }}>Pune Studio</h2>
+
           <p style={{ color: "var(--text-secondary)", marginBottom: "30px", fontSize: "0.95rem" }}>
             Reach our engineers or recruitment coordinators directly.
           </p>
@@ -120,8 +120,8 @@ function ContactForm() {
                 <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: "4px", fontFamily: "var(--font-serif)" }}>Office Address</h4>
                 <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.5" }}>
                   Luminoid Technologies Pvt. Ltd.<br />
-                  Sn-17/3/a Supreme Classic, Salunke Vihar Rd,<br />
-                  Khondhwa, Pune 411048, India
+                  <br />
+                  Pune Maharashtra, India
                 </p>
               </div>
             </div>
@@ -164,7 +164,7 @@ function ContactForm() {
       <div className="editorial-card" id="contact-form-card" style={{ background: "var(--bg-secondary)" }}>
         <form ref={form} onSubmit={sendEmail}>
           <div style={{ marginBottom: "30px" }}>
-            <h3 style={{ fontSize: "1.6rem", marginBottom: "6px", fontFamily: "var(--font-serif)" }}>Project Intake Router</h3>
+            <h3 style={{ fontSize: "1.6rem", marginBottom: "6px", fontFamily: "var(--font-serif)" }}>Project Discovery Gateway</h3>
             <p style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
               Select your focus area, and we will forward your parameters to the relevant division lead.
             </p>
@@ -350,7 +350,7 @@ export default function Contact() {
             marginBottom: "20px",
             fontFamily: "var(--font-serif)"
           }}>
-            Connect With Our Studio
+            Connect With Us
           </h1>
           <p style={{ color: "var(--text-secondary)", maxWidth: "600px", margin: "0 auto" }}>
             Submit your project parameters to get in touch with our engineering or recruitment desks.

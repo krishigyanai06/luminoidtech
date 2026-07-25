@@ -45,7 +45,7 @@ We have completed the styling and structural updates on the **Luminoid Technolog
 - Redesigned the homepage hero to feature `hero_bg.jpg` wrapped in a lighter blue/teal gradient overlay (`linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.65))`) to allow the background office photo to appear brighter while preserving high text legibility.
 
 ### 2. Consolidated High-Impact Copy
-- Headline: "Custom AI Agent Software Development, Talent Acquisition, & Agritech"
+- Headline: "Custom AI Agent Development | Strategic Talent Acquisition | Agritech & Digital Innovation"
 - Tagline: "Accelerate innovation. Find the perfect fit. Custom Development, Recruitment, and Smart Agritech IoT."
 
 ### 3. Dynamic Transparent Header

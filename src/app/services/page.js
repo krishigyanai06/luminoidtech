@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { 
   Laptop, Brain, Cpu, Rocket, ArrowRight, ShieldCheck, 
-  Settings, CheckCircle2, Server, Database, Code, Shield, ArrowUpRight
+  Settings, CheckCircle2, Server, Database, Code, Shield, ArrowUpRight,
+  Award, Zap, Globe, Target, Wrench
 } from "lucide-react";
 
 export default function Services() {
@@ -16,10 +17,10 @@ export default function Services() {
       linkUrl: "/recruitment",
       linkText: "Go to Talent Portal",
       items: [
-        { name: "Permanent IT Recruitment", desc: "Placing top-tier software engineers and QA developers." },
-        { name: "BFSI Executive Search", desc: "Finding risk managers, compliance officers, and finance directors." },
-        { name: "Contract & Staff Augmentation", desc: "Fast-tracking developer hiring for product sprints." },
-        { name: "Vetted Executive Search", desc: "In-depth profiling and logical screening checks." }
+        { name: "Market Mapping", desc: "Placing top-tier software engineers and QA developers." },
+        { name: "Executive Search", desc: "Finding risk managers, compliance officers, and finance directors." },
+        { name: "Compensation Benchmarking", desc: "Fast-tracking developer hiring for product sprints." },
+        { name: "Strategic Consulting", desc: "In-depth profiling and logical screening checks." }
       ]
     },
     {
@@ -45,9 +46,23 @@ export default function Services() {
       linkUrl: "https://krishigyanai.com",
       linkText: "Visit KrishiGyan AI",
       items: [
-        { name: "Field Telemetry & Probes", desc: "For details regarding soil moisture, NPK sensors, and weather gateways." },
-        { name: "Mandi App & Crop Advisory", desc: "For localized farmer diagnostics, pricing feeds, and cooperative boards." }
-      ]
+  {
+    name: "AI-Powered Crop Intelligence",
+    desc: "Leverage AI-driven insights for crop health analysis, disease detection, yield prediction, and smart farming recommendations."
+  },
+  {
+    name: "Digital Farm & FPO Management",
+    desc: "Manage farms, farmers, FPO operations, inventory, procurement, sales, and financial records from a unified platform."
+  },
+  {
+    name: "Smart Farm Monitoring",
+    desc: "Monitor field conditions in real time using IoT sensors, weather data, soil moisture, and automated alerts."
+  },
+  {
+    name: "Precision Agriculture",
+    desc: "Optimize irrigation, fertilization, and crop inputs with data-driven recommendations for higher productivity and sustainability."
+  }
+]
     }
   ];
 
@@ -161,48 +176,122 @@ export default function Services() {
         </div>
       </section>
 
-      {/* R&D Engineering Workflow */}
-      <section style={{ backgroundColor: "var(--bg-secondary)", position: "relative", zIndex: 2 }} id="workflow-section">
+
+
+      {/* Why Choose Luminoid Section */}
+      <section style={{ position: "relative", zIndex: 2, background: "var(--bg-primary)", padding: "100px 30px", borderBottom: "1px solid var(--border-color)" }} id="why-choose-us-section">
         <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "60px" }}>
-            <span className="section-meta" style={{ justifyContent: "center" }}>Roadmap</span>
-            <h2 style={{ fontSize: "2.4rem", fontFamily: "var(--font-serif)" }}>Our Project Roadmap</h2>
+          <div style={{ textAlign: "left", marginBottom: "50px" }}>
+            <span className="section-meta" style={{ color: "var(--accent-gold)" }}>OUR EDGE</span>
+            <h2 style={{ fontSize: "2.55rem", fontFamily: "var(--font-serif)", color: "var(--text-primary)", marginTop: "10px", marginBottom: "15px", fontWeight: "700" }}>
+              Why Clients Choose Luminoid
+            </h2>
           </div>
 
-          {/* Workflow Timeline */}
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
-            gap: "24px"
-          }}>
-            {workflowSteps.map((step, idx) => (
-              <div 
-                key={idx} 
-                className="editorial-card"
-                style={{ 
-                  padding: "30px",
-                  background: "var(--bg-primary)"
-                }}
-                id={`workflow-card-${idx}`}
-              >
-                <div style={{ 
-                  fontSize: "2.2rem", 
-                  fontWeight: "bold", 
-                  color: "var(--accent-teal)",
-                  fontFamily: "var(--font-serif)",
-                  marginBottom: "15px",
-                  borderBottom: "1px solid var(--border-color)",
-                  paddingBottom: "10px",
-                  opacity: 0.8
-                }}>
-                  {step.step}
-                </div>
-                <h3 style={{ fontSize: "1.1rem", marginBottom: "10px", color: "var(--text-primary)", fontFamily: "var(--font-serif)" }}>{step.title}</h3>
-                <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: "1.6" }}>
-                  {step.desc}
+          <div className="edge-grid">
+            {/* Executive Search Expertise */}
+            <div className="edge-card" id="edge-card-executive-search">
+              <div className="edge-icon-container">
+                <Award size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">Executive Search Expertise</h3>
+                <p className="edge-desc">
+                  Retained-search discipline applied to every mandate, not just volume hiring.
                 </p>
               </div>
-            ))}
+            </div>
+
+            {/* Engineering Domain Knowledge */}
+            <div className="edge-card" id="edge-card-engineering-domain">
+              <div className="edge-icon-container">
+                <Wrench size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">Engineering Domain Knowledge</h3>
+                <p className="edge-desc">
+                  We speak the language of engineering, automation, and manufacturing leadership.
+                </p>
+              </div>
+            </div>
+
+            {/* AI-Driven Recruitment */}
+            <div className="edge-card" id="edge-card-ai-recruitment">
+              <div className="edge-icon-container">
+                <Brain size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">AI-Driven Recruitment</h3>
+                <p className="edge-desc">
+                  Technology-enabled sourcing and market mapping, built by our own engineering team.
+                </p>
+              </div>
+            </div>
+
+            {/* Fast Hiring */}
+            <div className="edge-card" id="edge-card-fast-hiring">
+              <div className="edge-icon-container">
+                <Zap size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">Fast Hiring</h3>
+                <p className="edge-desc">
+                  Structured, parallel-track search built for speed without cutting corners.
+                </p>
+              </div>
+            </div>
+
+            {/* India Market Intelligence */}
+            <div className="edge-card" id="edge-card-india-market">
+              <div className="edge-icon-container">
+                <Globe size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">India Market Intelligence</h3>
+                <p className="edge-desc">
+                  Compensation, talent-pool, and location intelligence specific to your sector.
+                </p>
+              </div>
+            </div>
+
+            {/* GCC Specialists */}
+            <div className="edge-card" id="edge-card-gcc-specialists">
+              <div className="edge-icon-container">
+                <Globe size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">GCC Specialists</h3>
+                <p className="edge-desc">
+                  Deep experience recruiting for Global Capability Centres, not just IT services.
+                </p>
+              </div>
+            </div>
+
+            {/* Startup Mindset */}
+            <div className="edge-card" id="edge-card-startup-mindset">
+              <div className="edge-icon-container">
+                <Rocket size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">Startup Mindset</h3>
+                <p className="edge-desc">
+                  Founder-led, entrepreneurial delivery that moves at the pace your business needs.
+                </p>
+              </div>
+            </div>
+
+            {/* Strategic Consulting */}
+            <div className="edge-card" id="edge-card-strategic-consulting">
+              <div className="edge-icon-container">
+                <Target size={26} />
+              </div>
+              <div className="edge-content">
+                <h3 className="edge-title">Strategic Consulting</h3>
+                <p className="edge-desc">
+                  A talent partner who thinks about your business model, not just your job description.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

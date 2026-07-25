@@ -93,12 +93,12 @@ export default function RootLayout({ children }) {
             </div>
 
             <div className="footer-col">
-              <h3> Pune Studio</h3>
+              <h3> Pune</h3>
               <p style={{ color: "#ffffff", marginBottom: "12px", fontFamily: "var(--font-serif)" }}>
                 Luminoid Technologies Pvt. Ltd.
               </p>
               <p style={{ marginBottom: "8px" }}>
-                Address: Sn-17/3/a Supreme Classic, Salunke Vihar Rd,<br /> Khondhwa  Pune 411048
+                Address: Pune  Maharashtra, India
               </p>
               <p style={{ marginBottom: "8px" }}>
                 Email: info@luminoidtech.com

@@ -39,7 +39,7 @@ export default function Home() {
               marginBottom: "24px",
               color: "#ffffff"
             }} id="hero-headline" className="animate-fade-in-up">
-              Custom AI Agent <span style={{ color: "var(--accent-teal)" }}>Software Development</span>, <span style={{ color: "var(--accent-gold)" }}>Talent Acquisition</span>, &amp; <span style={{ color: "var(--accent-copper)" }}>Agritech</span>
+              Custom AI Agent <span style={{ color: "var(--accent-teal)" }}> Development</span>, <span style={{ color: "var(--accent-gold)" }}>Strategic Talent Acquisition</span> &amp; <span style={{ color: "var(--accent-copper)" }}>Agritech & Digital Innovation</span>
             </h1>
 
             <p style={{
@@ -49,12 +49,12 @@ export default function Home() {
               margin: "0 auto 35px",
               lineHeight: "1.65"
             }} className="animate-fade-in-up delay-100">
-              Accelerate innovation. Find the perfect fit. Custom Development, Recruitment, and Smart Agritech IoT.
+Helping Businesses Scale through Intelligent AI Solutions, Strategic Hiring
             </p>
 
             {/* Horizontal Tags/Chips */}
             <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap", marginBottom: "40px" }} className="animate-fade-in-up delay-100">
-              {["Custom Software & AI", "Executive Sourcing", "Agritech & IoT", "BFSI Sourcing", "KrishiGyan AI"].map((tag, idx) => (
+              {["Custom Software & AI", "Executive Sourcing", "Agritech & IoT", "KrishiGyan AI"].map((tag, idx) => (
                 <span key={idx} style={{ 
                   fontSize: "0.8rem", 
                   fontWeight: "600", 
@@ -115,12 +115,12 @@ export default function Home() {
                   <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.05em" }}>Software SLA</p>
                 </div>
                 <div>
-                  <div style={{ fontSize: "2.5rem", fontWeight: "850", color: "var(--accent-teal)", fontFamily: "var(--font-serif)" }}>1,000+</div>
+                  <div style={{ fontSize: "2.5rem", fontWeight: "850", color: "var(--accent-teal)", fontFamily: "var(--font-serif)" }}>250+</div>
                   <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.05em" }}>Placements</p>
                 </div>
                 <div>
-                  <div style={{ fontSize: "2.5rem", fontWeight: "850", color: "var(--accent-copper)", fontFamily: "var(--font-serif)" }}>10k+</div>
-                  <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.05em" }}>Telemetry Probes</p>
+                  <div style={{ fontSize: "2.5rem", fontWeight: "850", color: "var(--accent-red)", fontFamily: "var(--font-serif)" }}>15+</div>
+                  <p style={{ fontSize: "0.75rem", color: "var(--accent-red)", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.05em" }}>Clients</p>
                 </div>
               </div>
             </div>
@@ -197,9 +197,9 @@ export default function Home() {
             {/* Vertical 2: Talent Acquisition */}
             <div className="editorial-card animate-fade-in-up delay-100" style={{ display: "flex", flexDirection: "column", height: "100%" }} id="vertical-card-rec">
               <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", color: "var(--accent-gold)", fontWeight: "700", display: "block", marginBottom: "12px" }}>
-                02 / HUMAN CAPITAL
+                02 / PEOPLE AND CULTURE
               </span>
-              <h3 style={{ fontSize: "1.6rem", marginBottom: "16px", fontFamily: "var(--font-serif)", fontWeight: "700" }}>Talent Acquisition</h3>
+              <h3 style={{ fontSize: "1.6rem", marginBottom: "16px", fontFamily: "var(--font-serif)", fontWeight: "700" }}>Human Capital Solutions</h3>
               <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: "1.6", marginBottom: "30px", flexGrow: 1 }}>
                 Sourcing specialized software developers, database engineers, risk directors, and executive leadership across IT & BFSI sectors. We execute Permanent IT, RPO, and Lateral Hiring drives.
               </p>
@@ -273,19 +273,19 @@ export default function Home() {
               <div style={{ overflow: "hidden", borderRadius: "8px", height: "200px", border: "1px solid rgba(255,255,255,0.1)", marginBottom: "20px" }}>
                 <img 
                   src="/images/software3.jpg" 
-                  alt="Apex Payments CRO Placement" 
+                  alt="CTO Placement" 
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </div>
               <span style={{ color: "var(--accent-gold)", fontSize: "0.7rem", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "6px" }}>
                 VERTICAL 02 / TALENT ACQUISITION
               </span>
-              <h3 style={{ fontSize: "1.25rem", color: "#ffffff", marginBottom: "10px", fontFamily: "var(--font-serif)" }}>Apex Payments CRO Sourcing</h3>
+              <h3 style={{ fontSize: "1.25rem", color: "#ffffff", marginBottom: "10px", fontFamily: "var(--font-serif)" }}> CTO Sourcing</h3>
               <p style={{ fontSize: "0.85rem", color: "#cbd5e1", lineHeight: "1.6", marginBottom: "16px", flexGrow: 1 }}>
-                Mapped executive networks to source and place a chief risk officer matching strict regulatory standards within 45 days.
+                Mapped executive networks to source and place a Chief Technology Officer matching strict regulatory standards within 45 days.
               </p>
               <div style={{ fontSize: "0.85rem", color: "var(--accent-gold)", fontWeight: "700" }}>
-                Outcome: Placed CRO signed in 45 days.
+                Outcome: Placed CTO  in 45 days.
               </div>
             </div>
 
@@ -368,7 +368,7 @@ export default function Home() {
             textAlign: "center"
           }}>
             <h2 style={{ fontSize: "2.2rem", marginBottom: "12px", fontFamily: "var(--font-serif)", fontWeight: "700" }}>
-              Ready to Solve Your Software, Sourcing, or Agritech Challenges?
+             Let's Solve Your Software, Talent, and Technology Challenges Together.
             </h2>
             <p style={{ color: "var(--text-secondary)", maxWidth: "750px", margin: "0 auto 30px", fontSize: "1.05rem" }}>
               Reach out to our specialists to coordinate custom coding timelines, configure recruitment RPO drives, or coordinate telemetry field hardware.
